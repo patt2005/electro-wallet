@@ -1,4 +1,5 @@
 import SwiftUI
+import SafariServices
 
 struct SettingsTabView: View {
     @EnvironmentObject var store: WalletStore
@@ -8,6 +9,7 @@ struct SettingsTabView: View {
     @State private var showPINSetup = false
     @State private var showPINConfirm = false
     @State private var pendingPIN: String = ""
+    @State private var showPrivacyPolicy = false
 
     var body: some View {
         ScrollView {
@@ -119,6 +121,30 @@ struct SettingsTabView: View {
                             .font(.system(size: 14))
                             .foregroundStyle(Color(.secondaryLabel))
                     }
+
+                    Button {
+                        showPrivacyPolicy = true
+                    } label: {
+                        HStack(spacing: 12) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 7)
+                                    .fill(Color.btcBlue.opacity(0.15))
+                                    .frame(width: 30, height: 30)
+                                Image(systemName: "hand.raised.fill")
+                                    .font(.system(size: 13))
+                                    .foregroundStyle(Color.btcBlue)
+                            }
+                            Text("Privacy Policy")
+                                .font(.system(size: 15))
+                                .foregroundStyle(Color(.label))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(Color(.tertiaryLabel))
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 14)
+                    }
                 }
 
                 // Danger zone
@@ -166,6 +192,9 @@ struct SettingsTabView: View {
         }
         .sheet(isPresented: $showPINSetup) {
             PINSetupFlow()
+        }
+        .sheet(isPresented: $showPrivacyPolicy) {
+            PrivacyPolicyView()
         }
     }
 }
@@ -330,6 +359,21 @@ struct SeedPhraseRevealView: View {
             }
         }
     }
+}
+
+// MARK: - Privacy Policy Web View
+
+struct PrivacyPolicyView: UIViewControllerRepresentable {
+    private let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/nightee-66b26.firebasestorage.app/o/privacy-policy.html?alt=media&token=49ad6702-60a6-47b0-a356-0bfeb7de1f49")!
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = false
+        let vc = SFSafariViewController(url: url, configuration: config)
+        return vc
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
 }
 
 #Preview {

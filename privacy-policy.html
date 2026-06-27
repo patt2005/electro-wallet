@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Electro Wallet</title>
+  <style>
+    :root {
+      --green: #1A9E3F;
+      --green-light: #e8f5ec;
+      --text: #1c1c1e;
+      --text-secondary: #636366;
+      --bg: #f2f2f7;
+      --card: #ffffff;
+      --border: #e5e5ea;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-box {
+      width: 52px;
+      height: 52px;
+      background: var(--green-light);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-box svg {
+      width: 26px;
+      height: 26px;
+      fill: var(--green);
+    }
+
+    .header-text h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .header-text p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Hero card ── */
+    .hero {
+      background: var(--green);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      margin-bottom: 32px;
+      color: #fff;
+    }
+
+    .hero h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      opacity: 0.88;
+      line-height: 1.6;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h3 .icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card ul {
+      margin: 8px 0 10px 4px;
+      padding-left: 18px;
+    }
+
+    .card ul li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .card ul li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Highlight box ── */
+    .highlight {
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 14px;
+      font-size: 14px;
+      color: #1a5e2f;
+      line-height: 1.6;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 32px 0 12px 4px;
+    }
+
+    /* ── Contact card ── */
+    .contact-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .contact-card .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--green-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .contact-card .contact-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .contact-card .contact-body p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .contact-card .contact-body a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-card .contact-body a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 24px 20px; }
+      .card { padding: 20px; }
+      main { padding: 24px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header>
+  <div class="header-inner">
+    <div class="logo-box">
+      <!-- Bolt icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Electro Wallet</h1>
+      <p>Non-custodial Bitcoin Wallet &mdash; Privacy Policy</p>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main content ── -->
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="badge">Privacy First</div>
+    <h2>Your Keys. Your Bitcoin. Your Privacy.</h2>
+    <p>Electro Wallet is a self-custody, open-source Bitcoin wallet. We built it with a single principle: <strong>we should never be able to access your funds or your data</strong> &mdash; because we never touch them in the first place.</p>
+  </div>
+
+  <!-- Last updated -->
+  <p style="font-size:13px; color:var(--text-secondary); margin-bottom:28px; padding-left:4px;">
+    Last updated: <strong>June 27, 2026</strong> &nbsp;&bull;&nbsp; Effective date: <strong>June 27, 2026</strong>
+  </p>
+
+  <!-- Section 1 -->
+  <div class="section-label">1. Overview</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#e8f5ec;">&#128274;</span> Non-Custodial by Design</h3>
+    <p>Electro Wallet is a <strong>non-custodial</strong> Bitcoin wallet. This means:</p>
+    <ul>
+      <li><strong>Your seed phrase (recovery phrase)</strong> is generated entirely on your device and stored exclusively in your device's Keychain. We never see it, transmit it, or have any way to recover it.</li>
+      <li><strong>Your private keys</strong> never leave your device in any form.</li>
+      <li><strong>We cannot move, freeze, or access your funds.</strong> Only you hold the keys.</li>
+    </ul>
+    <div class="highlight">
+      If you lose your seed phrase and your device, no one &mdash; including us &mdash; can recover your funds. Please back it up securely offline.
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section-label">2. Data We Collect</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#fff0e0;">&#128683;</span> We Collect No Personal Data</h3>
+    <p>Electro Wallet does <strong>not</strong> collect, store, transmit, or process any personally identifiable information. Specifically, we do not collect:</p>
+    <ul>
+      <li>Your name, email address, or contact information</li>
+      <li>Your IP address or device identifiers</li>
+      <li>Your Bitcoin addresses or transaction history</li>
+      <li>Your seed phrase, private keys, or PIN</li>
+      <li>Crash reports or analytics</li>
+      <li>Location data</li>
+      <li>Any usage telemetry or behavioral data</li>
+    </ul>
+    <p>There are no user accounts, no sign-ups, and no servers operated by Electro Wallet that receive your data.</p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section-label">3. Data Stored Locally on Your Device</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#f0f0ff;">&#128241;</span> What Stays on Your Device</h3>
+    <p>The following data is stored <strong>locally on your device only</strong> and is never transmitted to us:</p>
+    <ul>
+      <li><strong>Seed phrase</strong> &mdash; encrypted in iOS Keychain (<code>kSecClassGenericPassword</code>), accessible only by Electro Wallet on your device.</li>
+      <li><strong>PIN</strong> &mdash; stored in iOS Keychain; used for local app lock only.</li>
+      <li><strong>App preferences</strong> &mdash; PIN/biometric enabled flags stored in <code>UserDefaults</code>; no sensitive financial data.</li>
+      <li><strong>Wallet database</strong> &mdash; a local SQLite file (via BitcoinKit.Swift) caching block headers and transactions for SPV validation. This file is not transmitted anywhere.</li>
+    </ul>
+    <p>All of this data is removed if you choose "Delete Wallet" in Settings or uninstall the app.</p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section-label">4. Third-Party Services</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#e8f5ec;">&#127760;</span> Bitcoin Network Connectivity</h3>
+    <p>To sync your wallet with the Bitcoin blockchain, Electro Wallet connects to public Bitcoin infrastructure. These connections may reveal your IP address to those services:</p>
+    <ul>
+      <li><strong>BitcoinKit.Swift (open source library)</strong> &mdash; used for all Bitcoin protocol operations. It connects to public Bitcoin full nodes and the following public APIs for transaction history:
+        <ul style="margin-top:6px;">
+          <li><a href="https://blocksdecoded.com" target="_blank" rel="noopener" style="color:var(--green);">blocksdecoded.com</a> &mdash; transaction indexing API</li>
+          <li><a href="https://blockchain.info" target="_blank" rel="noopener" style="color:var(--green);">blockchain.info</a> &mdash; fallback API for address data</li>
+        </ul>
+      </li>
+      <li><strong>blockchain.info / CoinGecko (price feeds)</strong> &mdash; used to display the current BTC/USD exchange rate. Only a public market price endpoint is queried; no wallet data is sent.</li>
+    </ul>
+    <div class="highlight">
+      Your Bitcoin addresses may be visible to these public APIs as part of normal SPV (Simplified Payment Verification) operation. This is inherent to how lightweight Bitcoin clients work. For maximum privacy, consider running your own Bitcoin node.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#fff0f0;">&#128064;</span> Apple Services</h3>
+    <p>As an iOS app, Electro Wallet runs on Apple's platform and is subject to Apple's standard privacy practices:</p>
+    <ul>
+      <li><strong>Face ID / Touch ID</strong> &mdash; biometric authentication is handled entirely by iOS (LocalAuthentication framework). Biometric data never leaves your device and is never accessible to Electro Wallet or any third party.</li>
+      <li><strong>iCloud Keychain</strong> &mdash; Electro Wallet does <em>not</em> enable iCloud sync for Keychain items. Your seed phrase is stored with <code>kSecAttrSynchronizable = false</code>, meaning it remains on-device only.</li>
+      <li><strong>App Store</strong> &mdash; Apple may collect analytics related to app downloads and crashes through the App Store, per <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener" style="color:var(--green);">Apple's Privacy Policy</a>.</li>
+    </ul>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section-label">5. Security</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#e8f5ec;">&#128737;</span> Security Measures</h3>
+    <ul>
+      <li><strong>iOS Keychain</strong> &mdash; your seed phrase and PIN are stored with hardware-backed encryption.</li>
+      <li><strong>App Lock</strong> &mdash; optional PIN and biometric lock prevents unauthorized access if your device is unlocked.</li>
+      <li><strong>No network transmission of secrets</strong> &mdash; your seed phrase and private keys are never sent over any network connection.</li>
+      <li><strong>Open source</strong> &mdash; the app's source code is publicly auditable so anyone can verify these claims.</li>
+    </ul>
+    <div class="highlight">
+      Security of your funds ultimately depends on keeping your seed phrase secret and your device secure. Enable a device passcode and app PIN for best protection.
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section-label">6. Children's Privacy</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#fff0e0;">&#128118;</span> Not Directed at Children</h3>
+    <p>Electro Wallet is not directed to children under the age of 13 (or the applicable age in your jurisdiction). We do not knowingly collect any information from children. Since we collect no personal data from anyone, this applies equally to all users.</p>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="section-label">7. Changes to This Policy</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#f0f0ff;">&#128221;</span> Policy Updates</h3>
+    <p>If we make material changes to this privacy policy, we will update the "Last updated" date at the top of this page and, where appropriate, notify users through the app or the App Store release notes.</p>
+    <p>Because we collect no personal data, changes are unlikely to affect how your information is handled &mdash; but we are committed to keeping this policy accurate and transparent.</p>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="section-label">8. Open Source</div>
+
+  <div class="card">
+    <h3><span class="icon" style="background:#e8f5ec;">&#128218;</span> Verify Our Claims</h3>
+    <p>Electro Wallet is open source. You can inspect the full source code to verify that the app behaves exactly as described in this policy. We encourage security researchers and privacy advocates to audit the code.</p>
+    <p>The app is powered by <strong>BitcoinKit.Swift</strong>, also an open-source library.</p>
+  </div>
+
+  <!-- Contact -->
+  <div class="section-label">9. Contact</div>
+
+  <div class="contact-card">
+    <div class="contact-icon">&#9993;</div>
+    <div class="contact-body">
+      <h4>Questions about this Privacy Policy?</h4>
+      <p>Reach out at <a href="mailto:normandcarie782@gmail.com">normandcarie782@gmail.com</a></p>
+      <p style="margin-top:4px;">We aim to respond within 5 business days.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>&copy; 2026 Electro Wallet &nbsp;&bull;&nbsp; Non-custodial Bitcoin Wallet &nbsp;&bull;&nbsp; Open Source</p>
+  <p style="margin-top:6px;">Powered by <a href="https://github.com/horizontalsystems/bitcoin-kit-ios" target="_blank" rel="noopener">BitcoinKit.Swift</a></p>
+</footer>
+
+</body>
+</html>
