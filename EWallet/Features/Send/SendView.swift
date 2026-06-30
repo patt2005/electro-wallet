@@ -22,24 +22,27 @@ struct SendView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.systemGroupedBackground).ignoresSafeArea()
+                Color.appBackground.ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 18) {
-                        // Amount
+                        // Amount card
                         VStack(spacing: 0) {
-                            Text("Amount")
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundStyle(Color(.secondaryLabel))
-                                .textCase(.uppercase)
-                                .tracking(0.8)
+                            Text("AMOUNT")
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundStyle(Color.textMuted)
+                                .tracking(1)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.bottom, 10)
+                                .padding(.bottom, 12)
 
                             HStack(alignment: .lastTextBaseline, spacing: 8) {
                                 TextField("0.00000", text: $store.sendAmountBTC)
-                                    .font(.system(size: 38, weight: .ultraLight))
-                                    .foregroundStyle(Color(.label))
+                                    .font(.system(size: 46, weight: .bold))
+                                    .foregroundStyle(
+                                        store.sendAmountBTC.isEmpty
+                                            ? Color.textMuted
+                                            : Color.textPrimary
+                                    )
                                     .keyboardType(.decimalPad)
                                     .multilineTextAlignment(.center)
                                     .monospacedDigit()
@@ -47,12 +50,12 @@ struct SendView: View {
 
                                 Text("BTC")
                                     .font(.system(size: 20, weight: .light))
-                                    .foregroundStyle(Color(.secondaryLabel))
+                                    .foregroundStyle(Color.textSecondary)
                             }
 
                             Text("≈ \(amtUSD)")
-                                .font(.system(size: 14))
-                                .foregroundStyle(Color(.secondaryLabel))
+                                .font(.system(size: 14, design: .monospaced))
+                                .foregroundStyle(Color.textSecondary)
                                 .padding(.top, 6)
 
                             if let amt = Double(store.sendAmountBTC), amt > maxBTC {
@@ -62,39 +65,40 @@ struct SendView: View {
                                     .padding(.top, 4)
                             }
 
-                            // Max button
+                            // MAX button
                             Button {
                                 store.sendAmountBTC = String(format: "%.5f", maxBTC)
                             } label: {
                                 Text("MAX")
                                     .font(.system(size: 12, weight: .bold))
                                     .foregroundStyle(Color.btcGreen)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 4)
-                                    .background(Color.btcGreen.opacity(0.1))
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 5)
+                                    .background(Color.btcGreenLight)
                                     .clipShape(Capsule())
                             }
-                            .padding(.top, 10)
+                            .padding(.top, 12)
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 20)
-                        .background(Color(.systemBackground))
-                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 22))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 18)
-                                .stroke(Color(.separator).opacity(0.5), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 22)
+                                .stroke(Color.cardBorder, lineWidth: 1)
                         )
+                        .shadow(color: Color.separator, radius: 8, x: 0, y: 2)
 
                         // Recipient Address
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Recipient Address")
                                 .font(.system(size: 13, weight: .medium))
-                                .foregroundStyle(Color(.secondaryLabel))
+                                .foregroundStyle(Color.textSecondary)
 
                             HStack(spacing: 10) {
                                 TextField("Bitcoin address (bc1q…)", text: $store.sendAddress)
                                     .font(.system(size: 13, design: .monospaced))
-                                    .foregroundStyle(Color(.label))
+                                    .foregroundStyle(Color.textPrimary)
                                     .autocorrectionDisabled()
                                     .textInputAutocapitalization(.never)
                                     .lineLimit(2)
@@ -107,8 +111,8 @@ struct SendView: View {
                                 } label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 8)
-                                            .fill(Color.btcGreen.opacity(0.1))
-                                            .frame(width: 32, height: 32)
+                                            .fill(Color.btcGreenLight)
+                                            .frame(width: 34, height: 34)
                                         Image(systemName: "doc.on.clipboard")
                                             .font(.system(size: 14))
                                             .foregroundStyle(Color.btcGreen)
@@ -116,20 +120,21 @@ struct SendView: View {
                                 }
                             }
                             .padding(14)
-                            .background(Color(.systemBackground))
+                            .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 14)
-                                    .stroke(isAddressValid ? Color.btcGreen : Color(.separator), lineWidth: 1.5)
+                                    .stroke(isAddressValid ? Color.btcGreen : Color.cardBorder, lineWidth: 1)
                             )
                             .animation(.easeInOut(duration: 0.2), value: isAddressValid)
                         }
 
                         // Fee Selector
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Network Fee")
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundStyle(Color(.secondaryLabel))
+                            Text("NETWORK FEE")
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundStyle(Color.textMuted)
+                                .tracking(1)
 
                             VStack(spacing: 8) {
                                 ForEach(FeeLevel.allCases) { level in
@@ -150,15 +155,17 @@ struct SendView: View {
                         } label: {
                             Text("Review →")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundStyle(canReview ? .white : Color(.secondaryLabel))
+                                .foregroundStyle(canReview ? .white : Color.textSecondary)
                                 .frame(maxWidth: .infinity)
-                                .padding(.vertical, 17)
-                                .background(canReview ? Color.btcGreen : Color(.systemBackground))
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                                .frame(height: 56)
+                                .background(canReview ? Color.btcGreen : Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(canReview ? Color.clear : Color(.separator), lineWidth: 1)
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(canReview ? Color.clear : Color.cardBorder, lineWidth: 1)
                                 )
+                                .shadow(color: canReview ? Color.btcGreen.opacity(0.32) : Color.clear,
+                                        radius: 22, x: 0, y: 8)
                         }
                         .disabled(!canReview)
                         .animation(.easeInOut(duration: 0.2), value: canReview)
@@ -196,40 +203,48 @@ struct FeeLevelRow: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 10) {
-                Circle()
-                    .fill(isSelected ? Color.btcGreen : Color(.separator))
-                    .frame(width: 8, height: 8)
+            HStack(spacing: 12) {
+                // Radio circle
+                ZStack {
+                    Circle()
+                        .stroke(isSelected ? Color.btcGreen : Color.cardBorder, lineWidth: 1.5)
+                        .frame(width: 18, height: 18)
+                    if isSelected {
+                        Circle()
+                            .fill(Color.btcGreen)
+                            .frame(width: 9, height: 9)
+                    }
+                }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(level.rawValue)
                         .font(.system(size: 14, weight: isSelected ? .semibold : .regular))
-                        .foregroundStyle(isSelected ? Color(.label) : Color(.secondaryLabel))
+                        .foregroundStyle(isSelected ? Color.textPrimary : Color.textSecondary)
                     Text(level.estimatedTime)
                         .font(.system(size: 12))
-                        .foregroundStyle(Color(.tertiaryLabel))
+                        .foregroundStyle(Color.textMuted)
                 }
 
                 Spacer()
 
                 if estimatedFeeSats > 0 {
                     Text("\(feeBTC) BTC")
-                        .font(.system(size: 13))
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .font(.system(size: 13, design: .monospaced))
+                        .foregroundStyle(Color.textSecondary)
                 } else {
                     Text("—")
                         .font(.system(size: 13))
-                        .foregroundStyle(Color(.tertiaryLabel))
+                        .foregroundStyle(Color.textMuted)
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.vertical, 14)
             .background(
-                RoundedRectangle(cornerRadius: 13)
-                    .fill(isSelected ? Color.btcGreen.opacity(0.05) : Color(.systemBackground))
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(isSelected ? Color(red: 234/255, green: 246/255, blue: 238/255) : Color.white)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 13)
-                            .stroke(isSelected ? Color.btcGreen : Color(.separator).opacity(0.5), lineWidth: 1.5)
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(isSelected ? Color.btcGreen : Color.cardBorder, lineWidth: 1.5)
                     )
             )
         }

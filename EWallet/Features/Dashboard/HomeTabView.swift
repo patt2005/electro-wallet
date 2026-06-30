@@ -13,38 +13,20 @@ struct HomeTabView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("My Wallet")
-                            .font(.system(size: 13))
-                            .foregroundStyle(Color(.secondaryLabel))
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundStyle(Color.textPrimary)
 
                         HStack(spacing: 6) {
                             Circle()
                                 .fill(store.isSynced ? Color.btcGreen : Color.btcOrange)
                                 .frame(width: 7, height: 7)
                             Text(store.syncStatusText)
-                                .font(.system(size: 12))
-                                .foregroundStyle(Color(.secondaryLabel))
+                                .font(.system(size: 12, design: .monospaced))
+                                .foregroundStyle(Color(red: 102/255, green: 117/255, blue: 107/255))
                         }
                     }
 
                     Spacer()
-
-                    Button {
-                        // Notification placeholder
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(.systemBackground))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color(.separator), lineWidth: 1)
-                                )
-                                .frame(width: 38, height: 38)
-
-                            Image(systemName: "bell")
-                                .font(.system(size: 16))
-                                .foregroundStyle(Color(.secondaryLabel))
-                        }
-                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
@@ -64,8 +46,8 @@ struct HomeTabView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack {
                         Text("Recent")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(Color(.label))
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(Color.textPrimary)
 
                         Spacer()
 
@@ -73,7 +55,7 @@ struct HomeTabView: View {
                             selectedTab = .history
                         } label: {
                             Text("See all →")
-                                .font(.system(size: 14))
+                                .font(.system(size: 14, weight: .bold))
                                 .foregroundStyle(Color.btcGreen)
                         }
                     }
@@ -91,8 +73,8 @@ struct HomeTabView: View {
             }
         }
         .refreshable {
-                store.bitcoinService.refresh()
-            }
+            store.bitcoinService.refresh()
+        }
         .safeAreaInset(edge: .top) { Color.clear.frame(height: 0) }
     }
 }
@@ -106,11 +88,10 @@ struct BalanceCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("Total Balance")
-                    .font(.system(size: 11, weight: .semibold))
-                    .foregroundStyle(Color(.secondaryLabel))
-                    .textCase(.uppercase)
-                    .tracking(0.7)
+                Text("TOTAL BALANCE")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(Color.white.opacity(0.66))
+                    .tracking(1.5)
 
                 Spacer()
 
@@ -121,70 +102,82 @@ struct BalanceCard: View {
                 } label: {
                     Image(systemName: showBalance ? "eye" : "eye.slash")
                         .font(.system(size: 16))
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(Color.white.opacity(0.70))
                 }
             }
-            .padding(.bottom, 8)
+            .padding(.bottom, 14)
 
             // BTC Amount
             HStack(alignment: .lastTextBaseline, spacing: 8) {
                 Text(showBalance ? String(format: "%.5f", store.spendableBTC) : "•••••")
-                    .font(.system(size: 42, weight: .ultraLight, design: .default))
-                    .foregroundStyle(Color(.label))
+                    .font(.system(size: 46, weight: .bold, design: .default))
+                    .foregroundStyle(Color.white)
                     .monospacedDigit()
 
                 Text("BTC")
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .font(.system(size: 16, design: .monospaced))
+                    .foregroundStyle(Color.white.opacity(0.70))
             }
 
             // USD Value
             Text(showBalance
                  ? "≈ \(store.spendableUSD.formatted(.currency(code: "USD")))"
                  : "≈ $ ••••")
-                .font(.system(size: 15))
-                .foregroundStyle(Color(.secondaryLabel))
-                .padding(.top, 2)
+                .font(.system(size: 14, design: .monospaced))
+                .foregroundStyle(Color.white.opacity(0.60))
+                .padding(.top, 4)
 
-            Divider()
-                .padding(.vertical, 16)
+            // Divider
+            Rectangle()
+                .fill(Color.white.opacity(0.16))
+                .frame(height: 1)
+                .padding(.vertical, 18)
 
             // BTC Price + 24h
             HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("BTC Price")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Color(.secondaryLabel))
-                        .textCase(.uppercase)
-                        .tracking(0.6)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("BTC PRICE")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color.white.opacity(0.66))
+                        .tracking(0.8)
                     Text(store.btcUsdRate > 0
                          ? store.btcUsdRate.formatted(.currency(code: "USD").precision(.fractionLength(0)))
                          : "Loading…")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(Color(.label))
+                        .font(.system(size: 16, weight: .bold, design: .monospaced))
+                        .foregroundStyle(Color.white)
                 }
 
                 Spacer()
 
-                VStack(alignment: .trailing, spacing: 3) {
-                    Text("24h Change")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Color(.secondaryLabel))
-                        .textCase(.uppercase)
-                        .tracking(0.6)
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text("24H CHANGE")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color.white.opacity(0.66))
+                        .tracking(0.8)
                     Text("+2.34%")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(Color.btcGreen)
+                        .font(.system(size: 16, weight: .bold, design: .monospaced))
+                        .foregroundStyle(Color(red: 123/255, green: 230/255, blue: 164/255))
                 }
             }
         }
-        .padding(.horizontal, 22)
-        .padding(.vertical, 22)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 22))
-        .overlay(
-            RoundedRectangle(cornerRadius: 22)
-                .stroke(Color(.separator).opacity(0.5), lineWidth: 1)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 24)
+        .background(
+            LinearGradient(
+                colors: [
+                    Color(red: 18/255, green: 145/255, blue: 78/255),
+                    Color(red: 10/255, green: 90/255, blue: 48/255)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 26))
+        .shadow(
+            color: Color(red: 11/255, green: 90/255, blue: 48/255).opacity(0.34),
+            radius: 38,
+            x: 0,
+            y: 16
         )
     }
 }
@@ -200,22 +193,22 @@ struct QuickActionsRow: View {
             QuickAction(
                 label: "Send",
                 icon: "arrow.up",
-                iconColor: Color.btcBlue,
-                iconBg: Color.btcBlue.opacity(0.12)
+                iconColor: Color.btcGreen,
+                iconBg: Color.btcGreenLight
             ) { store.showSend = true }
 
             QuickAction(
                 label: "Receive",
                 icon: "arrow.down",
                 iconColor: Color.btcGreen,
-                iconBg: Color.btcGreen.opacity(0.12)
+                iconBg: Color.btcGreenLight
             ) { selectedTab = .receive }
 
             QuickAction(
                 label: "History",
                 icon: "clock.arrow.circlepath",
                 iconColor: Color.btcOrange,
-                iconBg: Color.btcOrange.opacity(0.12)
+                iconBg: Color(red: 251/255, green: 239/255, blue: 217/255)
             ) { selectedTab = .history }
         }
     }
@@ -241,15 +234,15 @@ struct QuickAction: View {
                 }
                 Text(label)
                     .font(.system(size: 13, weight: .medium))
-                    .foregroundStyle(Color(.label))
+                    .foregroundStyle(Color.textPrimary)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
-            .background(Color(.systemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 18))
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(.separator).opacity(0.5), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(Color.cardBorder, lineWidth: 1)
             )
         }
     }
@@ -272,7 +265,7 @@ struct TransactionRow: View {
             // Icon
             ZStack {
                 RoundedRectangle(cornerRadius: 13)
-                    .fill(isSent ? Color.btcRed.opacity(0.12) : Color.btcGreen.opacity(0.12))
+                    .fill(isSent ? Color.btcRed.opacity(0.12) : Color.btcGreenLight)
                     .frame(width: 42, height: 42)
                 Image(systemName: isSent ? "arrow.up" : "arrow.down")
                     .font(.system(size: 16, weight: .semibold))
@@ -283,10 +276,10 @@ struct TransactionRow: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(isSent ? "Sent" : "Received")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(Color(.label))
+                    .foregroundStyle(Color.textPrimary)
                 Text(tx.blockHeight != nil ? dateText : "Pending")
                     .font(.system(size: 12))
-                    .foregroundStyle(Color(.secondaryLabel))
+                    .foregroundStyle(Color.textSecondary)
             }
 
             Spacer()
@@ -299,7 +292,7 @@ struct TransactionRow: View {
                 if tx.blockHeight != nil {
                     Text(dateText)
                         .font(.system(size: 12))
-                        .foregroundStyle(Color(.secondaryLabel))
+                        .foregroundStyle(Color.textSecondary)
                 } else {
                     Text("Unconfirmed")
                         .font(.system(size: 12))
@@ -309,7 +302,9 @@ struct TransactionRow: View {
         }
         .padding(.vertical, 13)
         .overlay(alignment: .bottom) {
-            Divider()
+            Rectangle()
+                .fill(Color.separator)
+                .frame(height: 1)
         }
     }
 }
@@ -318,16 +313,26 @@ struct TransactionRow: View {
 
 struct EmptyTransactionsView: View {
     var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "bitcoinsign.circle")
-                .font(.system(size: 40))
-                .foregroundStyle(Color(.tertiaryLabel))
+        VStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .strokeBorder(
+                        style: StrokeStyle(lineWidth: 1.5, dash: [5, 4])
+                    )
+                    .foregroundStyle(Color(red: 203/255, green: 212/255, blue: 204/255))
+                    .frame(width: 72, height: 72)
+
+                Text("₿")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundStyle(Color(red: 194/255, green: 203/255, blue: 196/255))
+            }
+
             Text("No transactions yet")
                 .font(.system(size: 15, weight: .medium))
-                .foregroundStyle(Color(.secondaryLabel))
+                .foregroundStyle(Color.textSecondary)
             Text("Send or receive Bitcoin to get started")
                 .font(.system(size: 13))
-                .foregroundStyle(Color(.tertiaryLabel))
+                .foregroundStyle(Color.textMuted)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)

@@ -28,8 +28,8 @@ struct HistoryTabView: View {
                 // Header
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Transactions")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(Color(.label))
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(Color.textPrimary)
 
                     // Filter chips
                     HStack(spacing: 8) {
@@ -40,12 +40,26 @@ struct HistoryTabView: View {
                                 }
                             } label: {
                                 Text(f.rawValue)
-                                    .font(.system(size: 13, weight: filter == f ? .semibold : .regular))
-                                    .foregroundStyle(filter == f ? .white : Color(.secondaryLabel))
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(filter == f ? .white : Color.textSecondary)
                                     .padding(.horizontal, 18)
-                                    .padding(.vertical, 7)
-                                    .background(filter == f ? Color.btcGreen : Color(.systemBackground))
-                                    .clipShape(Capsule())
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        filter == f
+                                            ? Color.btcGreen
+                                            : Color.white
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 11))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 11)
+                                            .stroke(filter == f ? Color.clear : Color.cardBorder, lineWidth: 1)
+                                    )
+                                    .shadow(
+                                        color: filter == f ? Color.btcGreen.opacity(0.28) : Color.clear,
+                                        radius: 8,
+                                        x: 0,
+                                        y: 3
+                                    )
                             }
                         }
                         Spacer()

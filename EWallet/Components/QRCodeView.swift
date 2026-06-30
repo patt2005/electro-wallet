@@ -45,8 +45,3 @@ struct QRCodeView: View {
         return UIImage(cgImage: cgImage)
     }
 }
-
-#Preview {
-    QRCodeView("bc1q4hvl7k6tdmqxv8gv4qjr0z2d5x7e9p3m2n1ks", size: 200)
-        .padding()
-}

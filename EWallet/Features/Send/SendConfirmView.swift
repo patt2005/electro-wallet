@@ -154,10 +154,3 @@ struct ConfirmRow<Trailing: View>: View {
         .padding(.vertical, 14)
     }
 }
-
-#Preview {
-    NavigationStack {
-        SendConfirmView()
-            .environmentObject(WalletStore())
-    }
-}

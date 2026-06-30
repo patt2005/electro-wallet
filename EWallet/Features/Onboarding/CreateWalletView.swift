@@ -12,38 +12,42 @@ struct CreateWalletView: View {
 
     var body: some View {
         ZStack {
-            Color(.systemGroupedBackground).ignoresSafeArea()
+            Color.appBackground.ignoresSafeArea()
 
             if isGenerating {
                 ProgressView()
                     .scaleEffect(1.5)
+                    .tint(Color.btcGreen)
             } else {
                 ScrollView {
                     VStack(spacing: 24) {
                         // Warning banner
                         HStack(alignment: .top, spacing: 10) {
-                            Text("⚠️")
-                                .font(.system(size: 18))
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.system(size: 16))
+                                .foregroundStyle(Color.btcOrange)
+                                .padding(.top, 1)
+
                             Text("Write these 12 words down in order. Anyone with this phrase can access your funds.")
                                 .font(.system(size: 13))
-                                .foregroundStyle(Color.btcOrange)
+                                .foregroundStyle(Color.warningText)
                                 .lineSpacing(4)
                         }
-                        .padding(14)
-                        .background(Color.btcOrange.opacity(0.1))
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 14)
+                        .background(Color.warningBg)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 13)
-                                .stroke(Color.btcOrange.opacity(0.3), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.warningBorder, lineWidth: 1)
                         )
-                        .clipShape(RoundedRectangle(cornerRadius: 13))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
 
                         // Section label + copy button
                         HStack {
-                            Text("Recovery Phrase")
-                                .font(.system(size: 12, weight: .semibold))
-                                .foregroundStyle(Color(.secondaryLabel))
-                                .tracking(0.5)
-                                .textCase(.uppercase)
+                            Text("RECOVERY PHRASE")
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundStyle(Color(red: 126/255, green: 140/255, blue: 130/255))
+                                .tracking(1.2)
 
                             Spacer()
 
@@ -61,11 +65,15 @@ struct CreateWalletView: View {
                                     Text(copied ? "Copied" : "Copy")
                                         .font(.system(size: 12, weight: .medium))
                                 }
-                                .foregroundStyle(copied ? Color.btcGreen : Color(.secondaryLabel))
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 5)
-                                .background(copied ? Color.btcGreen.opacity(0.1) : Color(.systemBackground))
+                                .foregroundStyle(copied ? Color.btcGreen : Color.textSecondary)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.white)
                                 .clipShape(Capsule())
+                                .overlay(
+                                    Capsule()
+                                        .stroke(Color.cardBorder, lineWidth: 1)
+                                )
                                 .animation(.easeInOut(duration: 0.2), value: copied)
                             }
                         }
@@ -73,22 +81,26 @@ struct CreateWalletView: View {
                         // Seed grid
                         LazyVGrid(columns: columns, spacing: 8) {
                             ForEach(Array(words.enumerated()), id: \.offset) { index, word in
-                                HStack(spacing: 7) {
+                                HStack(spacing: 6) {
                                     Text("\(index + 1)")
-                                        .font(.system(size: 11, weight: .semibold))
-                                        .foregroundStyle(Color(.secondaryLabel))
+                                        .font(.system(size: 10, design: .monospaced))
+                                        .foregroundStyle(Color.textMuted)
                                         .frame(minWidth: 14, alignment: .leading)
                                     Text(word)
-                                        .font(.system(size: 14, weight: .medium))
-                                        .foregroundStyle(Color(.label))
+                                        .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                        .foregroundStyle(Color.textPrimary)
                                         .lineLimit(1)
                                         .minimumScaleFactor(0.8)
                                 }
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 10)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(.systemBackground))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(Color.cardBorder, lineWidth: 1)
+                                )
                             }
                         }
 
@@ -100,22 +112,23 @@ struct CreateWalletView: View {
                                 ProgressView()
                                     .tint(.white)
                                     .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 17)
+                                    .frame(height: 56)
                             } else {
                                 Text("I've Written This Down →")
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundStyle(.white)
                                     .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 17)
+                                    .frame(height: 56)
                             }
                         }
                         .background(Color.btcGreen)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .shadow(color: Color.btcGreen.opacity(0.32), radius: 22, x: 0, y: 8)
                         .disabled(isCreating)
 
                         Text("Store offline. Never share. Never photograph.")
-                            .font(.system(size: 12))
-                            .foregroundStyle(Color(.tertiaryLabel))
+                            .font(.system(size: 11, design: .monospaced))
+                            .foregroundStyle(Color.textMuted)
                             .multilineTextAlignment(.center)
                             .lineSpacing(4)
                     }
